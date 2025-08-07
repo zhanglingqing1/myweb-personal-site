@@ -19,23 +19,23 @@ import {
 const personalData = {
   // 基本信息
   profile: {
-    displayName: "张凌青",
+    displayName: "Lynn.凌青",
     tagline: "在多线程世界里，打造可持续成长的自我操作系统",
-    avatarUrl: null, // 将使用占位符
+    avatarUrl: "/avatar.png", // Lynn的个人头像
     backgroundUrl: null, // 将使用渐变背景
   },
 
   // 社交媒体链接
   socialLinks: [
-    { platform: 'github', url: 'https://github.com', label: 'GitHub' },
-    { platform: 'twitter', url: 'https://twitter.com', label: 'Twitter' },
-    { platform: 'weibo', url: 'https://weibo.com', label: '微博' },
-    { platform: 'xiaohongshu', url: 'https://www.xiaohongshu.com', label: '小红书' },
+    { platform: 'twitter', url: 'https://x.com/LynnZhang1998s', label: 'Twitter' },
+    { platform: 'github', url: 'https://github.com/zhanglingqing1', label: 'GitHub' },
+    { platform: 'weibo', url: 'https://weibo.com/u/7907248440', label: '微博' },
+    { platform: 'xiaohongshu', url: 'https://www.xiaohongshu.com/user/profile/634a0662000000001802eaad', label: '小红书' },
     { platform: 'wechat', url: '#', label: '微信' },
   ],
 
   // 微信联系方式
-  wechatId: 'zhanglingqing_2024',
+  wechatId: 'LingQing-Lynn',
 
   // 履历时间线
   timeline: [
@@ -166,7 +166,7 @@ const personalData = {
 
   // 页脚信息
   footer: {
-    copyright: '© 2024 Alex Chen. All rights reserved.',
+    copyright: '© 2025 Lynn.凌青. All rights reserved.',
     madeWith: 'Made with ❤️ using React & TailwindCSS',
     beianInfo: '', // 如果需要备案信息，在这里添加
     links: [

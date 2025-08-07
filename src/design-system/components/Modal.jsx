@@ -3,11 +3,11 @@
  * 基于设计系统的模态框组件，支持微信等场景
  */
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { tv } from 'tailwind-variants'
 import { clsx } from 'clsx'
-import { X } from 'phosphor-react'
+import { X, Check } from 'phosphor-react'
 
 // 已删除modalVariants，直接使用固定的CSS类进行布局
 
@@ -153,6 +153,29 @@ export const WeChatModal = ({
   className,
   ...props 
 }) => {
+  // 复制状态管理
+  const [copied, setCopied] = useState(false)
+
+  // 复制到剪贴板的函数
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      // 2秒后恢复原始状态
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      // 降级方案：使用传统的复制方法
+      const textArea = document.createElement('textarea')
+      textArea.value = text
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
   return (
     <Modal 
       isOpen={isOpen} 
@@ -190,22 +213,20 @@ export const WeChatModal = ({
               inline-flex items-center gap-2 px-4 py-2 
               bg-[#433E38]/30 border border-[#433E38]
               rounded-lg font-mono text-sm text-[#E9EBDF]
-              select-all cursor-text
+              cursor-pointer transition-all duration-200
+              hover:bg-[#433E38]/50 hover:border-[#8B867F]
+              active:scale-95
             `}
-            onClick={(e) => {
-              e.preventDefault()
-              // 选中文本
-              const range = document.createRange()
-              range.selectNodeContents(e.target)
-              const selection = window.getSelection()
-              selection.removeAllRanges()
-              selection.addRange(range)
-            }}
+            onClick={() => copyToClipboard(wechatId)}
           >
-            {wechatId}
-            <svg className="w-4 h-4 text-[#8B867F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
+            <span className="select-none">{wechatId}</span>
+            {copied ? (
+              <Check className="w-4 h-4 text-green-400" weight="bold" />
+            ) : (
+              <svg className="w-4 h-4 text-[#8B867F] transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            )}
           </div>
         </div>
 
@@ -224,7 +245,7 @@ export const WeChatModal = ({
 
         {/* 说明文字 */}
         <div className="text-xs text-[#8B867F] leading-relaxed">
-          点击微信号可复制，或保存二维码到相册扫码添加
+          添加请注明来意，谢谢！
         </div>
       </div>
     </Modal>
