@@ -42,6 +42,8 @@ import {
   PasswordInput,
   InputGroup,
   FormField,
+  Modal,
+  WeChatModal,
   Components,
 } from './components/index.js'
 
@@ -105,6 +107,8 @@ export {
   PasswordInput,
   InputGroup,
   FormField,
+  Modal,
+  WeChatModal,
   Components,
   // Hooks
   useMediaQuery,
@@ -203,6 +207,7 @@ export const designSystem = {
       'Button',
       'Input',
       'Card',
+      'Modal',
     ],
     composite: [
       'CommunityCard',
@@ -211,6 +216,7 @@ export const designSystem = {
       'FeatureCard',
       'SearchInput',
       'PasswordInput',
+      'WeChatModal',
     ],
     layout: [
       'ButtonGroup',
@@ -224,7 +230,7 @@ export const designSystem = {
   // 使用指南
   usage: {
     installation: `
-      import { Button, Card, Input } from '@/design-system'
+      import { Button, Card, Input, Modal, WeChatModal } from '@/design-system'
       // 或者
       import { Components } from '@/design-system'
     `,

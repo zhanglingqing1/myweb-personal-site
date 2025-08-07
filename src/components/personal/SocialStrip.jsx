@@ -3,25 +3,38 @@
  * 展示社交媒体图标和链接
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   SiGithub, 
-  SiLinkedin, 
   SiX,
-  SiInstagram,
+  SiSinaweibo,
+  SiWechat,
   SiYoutube,
   SiDiscord,
   SiTelegram,
 } from 'react-icons/si'
-import { useBreakpoint } from '../../design-system'
+import { useBreakpoint, WeChatModal } from '../../design-system'
+
+// 小红书图标组件 (react-icons中没有官方图标)
+const XiaohongshuIcon = ({ className }) => (
+  <svg 
+    className={className}
+    fill="currentColor" 
+    viewBox="0 0 24 24"
+  >
+    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0z" fill="#ff2442"/>
+    <path d="M17.5 8.5h-11c-.3 0-.5.2-.5.5v6c0 .3.2.5.5.5h11c.3 0 .5-.2.5-.5V9c0-.3-.2-.5-.5-.5zM16 13H8v-2h8v2zm0-3H8V9h8v1z" fill="white"/>
+  </svg>
+)
 
 // 社交媒体图标映射
 const SOCIAL_ICONS = {
   github: SiGithub,
-  linkedin: SiLinkedin,
   twitter: SiX,
-  instagram: SiInstagram,
+  weibo: SiSinaweibo,
+  xiaohongshu: XiaohongshuIcon,
+  wechat: SiWechat,
   youtube: SiYoutube,
   discord: SiDiscord,
   telegram: SiTelegram,
@@ -30,19 +43,31 @@ const SOCIAL_ICONS = {
 export const SocialStrip = ({ 
   socialLinks = [],
   className = "",
+  wechatId,
   ...props 
 }) => {
   const { isMobile } = useBreakpoint()
+  const [isWeChatModalOpen, setIsWeChatModalOpen] = useState(false)
 
   // 默认社交链接示例
   const defaultLinks = [
     { platform: 'github', url: '#', label: 'GitHub' },
-    { platform: 'linkedin', url: '#', label: 'LinkedIn' },
     { platform: 'twitter', url: '#', label: 'Twitter' },
-    { platform: 'instagram', url: '#', label: 'Instagram' },
+    { platform: 'weibo', url: '#', label: '微博' },
+    { platform: 'xiaohongshu', url: '#', label: '小红书' },
+    { platform: 'wechat', url: '#', label: '微信' },
   ]
 
   const links = socialLinks.length > 0 ? socialLinks : defaultLinks
+
+  // 处理链接点击
+  const handleLinkClick = (link, e) => {
+    if (link.platform === 'wechat') {
+      e.preventDefault()
+      setIsWeChatModalOpen(true)
+    }
+    // 其他平台正常跳转，不需要特殊处理
+  }
 
   return (
     <motion.section
@@ -76,10 +101,11 @@ export const SocialStrip = ({
                 }}
               >
                 <motion.a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={link.platform === 'wechat' ? '#' : link.url}
+                  target={link.platform === 'wechat' ? '_self' : '_blank'}
+                  rel={link.platform === 'wechat' ? '' : 'noopener noreferrer'}
                   aria-label={link.label}
+                  onClick={(e) => handleLinkClick(link, e)}
                   className={`
                     inline-flex items-center justify-center
                     ${isMobile ? 'w-10 h-10' : 'w-12 h-12'}
@@ -92,6 +118,7 @@ export const SocialStrip = ({
                     hover:text-[#E9EBDF] hover:scale-110
                     focus:outline-none focus:ring-2 focus:ring-[#E9EBDF]/20
                     active:scale-95
+                    ${link.platform === 'wechat' ? 'cursor-pointer' : ''}
                   `}
                   whileHover={{ 
                     scale: 1.1,
@@ -120,6 +147,13 @@ export const SocialStrip = ({
           <div className="w-24 h-px bg-gradient-to-r from-transparent via-[#433E38] to-transparent" />
         </motion.div>
       </div>
+
+      {/* 微信弹窗 */}
+      <WeChatModal
+        isOpen={isWeChatModalOpen}
+        onClose={() => setIsWeChatModalOpen(false)}
+        wechatId={wechatId}
+      />
     </motion.section>
   )
 }

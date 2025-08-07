@@ -19,8 +19,8 @@ import {
 const personalData = {
   // 基本信息
   profile: {
-    displayName: "Alex Chen",
-    tagline: "Full-Stack Developer & UI/UX Designer passionate about creating beautiful, functional digital experiences",
+    displayName: "张凌青",
+    tagline: "在多线程世界里，打造可持续成长的自我操作系统",
     avatarUrl: null, // 将使用占位符
     backgroundUrl: null, // 将使用渐变背景
   },
@@ -28,10 +28,14 @@ const personalData = {
   // 社交媒体链接
   socialLinks: [
     { platform: 'github', url: 'https://github.com', label: 'GitHub' },
-    { platform: 'linkedin', url: 'https://linkedin.com', label: 'LinkedIn' },
     { platform: 'twitter', url: 'https://twitter.com', label: 'Twitter' },
-    { platform: 'instagram', url: 'https://instagram.com', label: 'Instagram' },
+    { platform: 'weibo', url: 'https://weibo.com', label: '微博' },
+    { platform: 'xiaohongshu', url: 'https://www.xiaohongshu.com', label: '小红书' },
+    { platform: 'wechat', url: '#', label: '微信' },
   ],
+
+  // 微信联系方式
+  wechatId: 'zhanglingqing_2024',
 
   // 履历时间线
   timeline: [
@@ -210,6 +214,7 @@ export const PersonalWebsite = ({ data = personalData, ...props }) => {
       {/* 03 - 社媒链接条 */}
       <SocialStrip
         socialLinks={data.socialLinks}
+        wechatId={data.wechatId}
       />
 
       {/* 04 - 个人履历时间线 */}

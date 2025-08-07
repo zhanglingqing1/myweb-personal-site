@@ -34,6 +34,11 @@ import {
   FormField 
 } from './Input.jsx'
 
+import { 
+  Modal, 
+  WeChatModal 
+} from './Modal.jsx'
+
 // 然后重新导出
 export { 
   Button, 
@@ -56,7 +61,9 @@ export {
   SearchInput, 
   PasswordInput, 
   InputGroup, 
-  FormField 
+  FormField,
+  Modal,
+  WeChatModal
 }
 
 // 组件集合 (便于批量导入)
@@ -87,6 +94,10 @@ export const Components = {
   PasswordInput,
   InputGroup,
   FormField,
+  
+  // 弹窗组件
+  Modal,
+  WeChatModal,
 }
 
 // 默认导出
