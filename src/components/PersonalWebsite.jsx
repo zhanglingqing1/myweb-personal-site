@@ -42,12 +42,12 @@ const personalData = {
     {
       id: 1,
       type: 'work',
-      title: 'Senior Frontend Developer',
-      company: 'TechCorp Inc.',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
-      description: 'Leading frontend development for enterprise web applications. Built and maintained design systems, mentored junior developers, and collaborated with product teams to deliver high-quality user experiences.',
-      skills: ['React', 'TypeScript', 'Next.js', 'Design Systems', 'Team Leadership', 'Mentoring']
+      title: 'AI产品经理',
+      company: '百度',
+      location: '中国·北京',
+      period: '2024 - Present',
+      description: '负责百度文库的产品规划、需求分析、项目管理、市场推广等工作。',
+      skills: ['产品经理', 'AI', '大模型', '产品规划', '需求分析', '项目管理', '市场推广']
     },
     {
       id: 2,
